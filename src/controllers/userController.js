@@ -34,16 +34,29 @@ router.post('/', displayNameError, emailError, passwordError, emailUnique, async
   }
 });
 
-router.get('/', ValidateNotToken, ValidateUserToken, async (_req, res) => {
-  const users = await User.findAll();
+router.get('/:id', ValidateNotToken, ValidateUserToken, async (req, res) => {
+    const { id } = req.params;
+    
+    const user = await User.findOne({
+      where: { id },
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
   
-  const removePassword = users.map((user) => ({
-    displayName: user.displayName,
-    email: user.email,
-    image: user.image,
-  }));
+    if (!user) {
+      return res.status(404).json({
+        message: 'User does not exist',
+      });
+    }
+  
+    res.status(200).json(user);
+});
 
-  res.status(200).json(removePassword);
+router.get('/', ValidateNotToken, ValidateUserToken, async (_req, res) => {
+  const users = await User.findAll({
+    attributes: ['displayName', 'email', 'image'],
+  });
+
+  res.status(200).json(users);
 });
 
 module.exports = router;
