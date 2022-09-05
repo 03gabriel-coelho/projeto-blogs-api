@@ -22,7 +22,16 @@ module.exports = {
           model: 'Categories',
           key: 'id',
         }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
       }
+    }, {
+      timestamps: false,
+      underscored: true,
     });
   },
 

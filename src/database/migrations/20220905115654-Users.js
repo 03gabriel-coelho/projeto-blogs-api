@@ -25,7 +25,16 @@ module.exports = {
       image: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
       }
+    }, {
+      timestamps: false,
+      underscored: true,
     });
   },
 
