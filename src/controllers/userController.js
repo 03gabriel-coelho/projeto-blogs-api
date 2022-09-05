@@ -9,6 +9,7 @@ const {
     passwordError,
     emailUnique,
   } = require('../middlewares/userMiddleware');
+const { ValidateNotToken, ValidateUserToken } = require('../middlewares/validateToken');
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.post('/', displayNameError, emailError, passwordError, emailUnique, async
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ data: displayName }, secret, jwtConfig);
+  const token = jwt.sign({ data: { displayName } }, secret, jwtConfig);
   
   try {
     await User.create({ displayName, email, password, image });
@@ -31,6 +32,18 @@ router.post('/', displayNameError, emailError, passwordError, emailUnique, async
   } catch (e) {
     return res.status(500).json({ message: e.message });
   }
+});
+
+router.get('/', ValidateNotToken, ValidateUserToken, async (_req, res) => {
+  const users = await User.findAll();
+  
+  const removePassword = users.map((user) => ({
+    displayName: user.displayName,
+    email: user.email,
+    image: user.image,
+  }));
+
+  res.status(200).json(removePassword);
 });
 
 module.exports = router;
