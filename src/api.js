@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const loginController = require('./controllers/loginController');
+const userController = require('./controllers/userController');
 
 // ...
 
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use('/login', loginController);
 
+app.use('/user', userController);
 // ...
 
 // É importante exportar a constante `app`,
