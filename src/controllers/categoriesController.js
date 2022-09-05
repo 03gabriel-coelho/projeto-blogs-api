@@ -14,4 +14,10 @@ router.post('/', ValidateNotToken, ValidateUserToken, nameError, async (req, res
   res.status(201).json(categorie);
 });
 
+router.get('/', ValidateNotToken, ValidateUserToken, async (_req, res) => {
+  const categories = await Category.findAll();
+
+  res.status(200).json(categories);
+});
+
 module.exports = router;
