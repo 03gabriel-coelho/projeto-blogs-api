@@ -1,7 +1,7 @@
 # Boas-vindas ao repositório do projeto API de Blogs!
 
 <details>
-  <summary><strong>👨‍💻 O que foi desenvolvido</strong></summary>
+  <summary><strong>O que foi desenvolvido</strong></summary>
 
   Neste projeto foi desenvolvido uma API e um banco de dados para a produção de conteúdo para um blog! 
 
